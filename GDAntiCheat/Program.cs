@@ -152,6 +152,7 @@ namespace GDAntiCheat
                         try
                         {
                             proc.Kill();
+                            Console.WriteLine("Killed " + name + ".");
                         }
                         catch
                         {
