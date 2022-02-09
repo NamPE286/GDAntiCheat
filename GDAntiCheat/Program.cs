@@ -8,7 +8,7 @@ namespace GDAntiCheat
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Program started! Loading HashSet...");
+            Console.WriteLine("Program started! Loading data...");
             var set = new HashSet<string>()
             {
                 "Idle",
@@ -114,16 +114,17 @@ namespace GDAntiCheat
                 "steamwebhelper",
                 "steamservice",
                 "VsDebugConsole",
-                "GDAntiCheat",
                 "FileCoAuth",
                 "TrustedInstaller",
                 "MoUsoCoreWorker",
-                "GameBarPresenceWriter"
+                "GameBarPresenceWriter",
+                "backgroundTaskHost"
             };
-            Console.WriteLine("HashSet loaded! This program will now perfrom process checking every 10 seconds.");
+            Console.WriteLine("Done! This program will now perfrom checking every 10 seconds.");
+            Console.WriteLine("------------------");
             while (true)
             {
-                Console.Write("Checking all running processes...");
+                Console.WriteLine("Checking all running processes...");
                 var allproc = Process.GetProcesses();
                 var numberOfGDInstances = 0;
                 int nProcessID = Process.GetCurrentProcess().Id;
@@ -144,6 +145,7 @@ namespace GDAntiCheat
                         if (proc.Id != nProcessID)
                         {
                             proc.Kill();
+                            Console.WriteLine("Killed duplicated GDAntiCheat instance.");
                         }
                     }
                     else if (!set.Contains(name))
@@ -152,13 +154,17 @@ namespace GDAntiCheat
                         try
                         {
                             proc.Kill();
-                            Console.WriteLine("Killed " + name + ".");
+                            Console.WriteLine(name);
                         }
                         catch
                         {
                             Console.WriteLine("Cannot kill " + name + ". Maybe access is denied.");
                         }
                     }
+                }
+                if(numberOfGDInstances == 0)
+                {
+                    Console.WriteLine("Geometry Dash is not running.");
                 }
                 Console.WriteLine("Done!");
                 System.Threading.Thread.Sleep(10000);
