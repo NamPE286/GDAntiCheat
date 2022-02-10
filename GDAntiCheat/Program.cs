@@ -128,7 +128,7 @@ namespace GDAntiCheat
                     Console.WriteLine("Geometry Dash is not running.");
                 }
                 Console.WriteLine("Done!");
-                System.Threading.Thread.Sleep(10000);
+                System.Threading.Thread.Sleep(30000);
             }
         }
     }
